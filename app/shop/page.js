@@ -12,7 +12,8 @@ export default function Shop() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const category = useSearchParams().get("category");
+    const searchParams = useSearchParams()
+    const category = searchParams.get("category");
     const [selectedCategory, setSelectedCategory] = useState(category || "All");
     const [sortBy, setSortBy] = useState("featured");
     const [searchQuery, setSearchQuery] = useState("");
