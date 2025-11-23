@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import ProductCard from "@/components/ProductCard";
 import { Filter, ChevronDown, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 const categories = ["All", "Watches", "Jewelry", "Accessories"];
 
-export default function Shop() {
+function ShopContent() {
     const [allProducts, setAllProducts] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -177,5 +177,13 @@ export default function Shop() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function Shop() {
+    return (
+        <Suspense fallback={<div>Loading shop...</div>}>
+            <ShopContent />
+        </Suspense>
     );
 }
