@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

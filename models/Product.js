@@ -35,10 +35,14 @@ const ProductSchema = new mongoose.Schema({
     featured: {
         type: Boolean,
         default: false,
+        index: true,
     },
 }, {
     timestamps: true,
 });
+
+ProductSchema.index({ createdAt: -1 });
+ProductSchema.index({ category: 1 });
 
 export default mongoose.models.Product || mongoose.model('Product', ProductSchema);
 

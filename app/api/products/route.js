@@ -1,9 +1,12 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Product from "@/models/Product";
 
 // GET all products
 export async function GET(request) {
+  console.time("GET /api/products");
   try {
     await connectDB();
 
@@ -33,6 +36,8 @@ export async function GET(request) {
       { error: "Failed to fetch products" },
       { status: 500 }
     );
+  } finally {
+    console.timeEnd("GET /api/products");
   }
 }
 
