@@ -18,11 +18,7 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         enum: ['Watches', 'Jewelry', 'Accessories'],
     },
-    // Keep imageUrl for backward compatibility (first image)
-    imageUrl: {
-        type: String,
-        required: false,
-    },
+    
     // New field: array of images (base64 or URLs)
     images: {
         type: [String],

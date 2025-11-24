@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 export default function ImageGallery({ images = [] }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -22,11 +23,15 @@ export default function ImageGallery({ images = [] }) {
         setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     };
 
+    console.log(images[selectedIndex]);
+
     return (
         <div className="space-y-4">
             {/* Main Image */}
             <div className="relative w-full h-96 md:h-[500px] bg-gray-100 rounded-lg overflow-hidden group">
-                <img
+                <Image
+                    width={500}
+                    height={500}
                     src={images[selectedIndex]}
                     alt={`Product ${selectedIndex + 1}`}
                     className="w-full h-full object-contain"

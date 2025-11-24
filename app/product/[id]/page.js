@@ -36,7 +36,7 @@ export default function ProductDetails() {
     if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
     if (!product) return <div className="min-h-screen flex items-center justify-center">Product not found</div>;
 
-    const images = product.images && product.images.length > 1 ? product.images : [product.imageUrl || "/images/placeholder.jpg"];
+    const images = product.images || [];
 
     console.log(images.length);
 

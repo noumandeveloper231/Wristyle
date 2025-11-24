@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Trash2, ArrowRight, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
 
 export default function Cart() {
     const { cart, updateQuantity, removeFromCart, cartTotal, loading, user } = useCart();
@@ -14,6 +15,9 @@ export default function Cart() {
             </div>
         );
     }
+
+    console.log('cart', cart);
+    
 
     if (!user) {
         return (
@@ -74,8 +78,8 @@ export default function Cart() {
                                         <td className="p-4">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
-                                                    {item.image_url ? (
-                                                        <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
+                                                    {item.images.length > 0 ? (
+                                                        <Image width={100} height={100} src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
                                                     ) : (
                                                         <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">
                                                             <ShoppingBag className="w-6 h-6" />

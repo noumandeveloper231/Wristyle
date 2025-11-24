@@ -30,22 +30,29 @@ export default function AddProduct() {
 
         try {
             console.log(product);
+            const formData = new FormData();
+            formData.append("name", product.name);
+            formData.append("description", product.description);
+            formData.append("price", product.price);
+            formData.append("category", product.category);
+            formData.append("stock", product.stock);
+            formData.append("featured", product.featured);
+
+            product.images.forEach((image) => {
+                formData.append("images", image);
+            });
+
             const response = await fetch('/api/products', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...product,
-                    price: parseFloat(product.price),
-                    stock: parseInt(product.stock) || 0,
-                    imageUrl: product.images[0],
-                }),
+                body: formData,
             });
 
             if (response.ok) {
                 toast.success("Product added successfully!");
                 router.push("/admin/products");
             } else {
-                toast.error("Failed to add product");
+                const errorData = await response.json();
+                toast.error(errorData.error || "Failed to add product");
             }
         } catch (error) {
             console.error("Error adding product:", error);
