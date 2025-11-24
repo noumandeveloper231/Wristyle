@@ -49,6 +49,9 @@ export function CartProvider({ children }) {
             return;
         }
 
+
+        const toastId = toast.loading("Adding to cart...");
+
         try {
             const response = await fetch('/api/cart', {
                 method: 'POST',
@@ -57,42 +60,43 @@ export function CartProvider({ children }) {
             });
 
             if (response.ok) {
-                const id = toast.loading("Adding to cart...");
-                await fetchCart();
-                toast.success("Added to cart", { id });
+                await fetchCart(); // update cart data
+                toast.success("Added to cart", { id: toastId });
             } else {
-                toast.error("Failed to add to cart");
+                toast.error("Failed to add to cart", { id: toastId });
             }
         } catch (error) {
             console.error("Error adding to cart:", error);
-            toast.error("Failed to add to cart");
+            toast.error("Failed to add to cart", { id: toastId });
         }
     };
+
 
     const removeFromCart = async (productId) => {
         if (!user) return;
 
+        const id = toast.loading("Deleting from Cart...");
         try {
             const response = await fetch(`/api/cart?productId=${productId}`, {
                 method: 'DELETE',
             });
 
             if (response.ok) {
-                const id = toast.loading("Deleting from Cart...");
                 await fetchCart();
                 toast.success("Removed from cart", { id });
             } else {
-                toast.error("Failed to remove item");
+                toast.error("Failed to remove item", { id });
             }
         } catch (error) {
             console.error("Error removing from cart:", error);
-            toast.error("Failed to remove item");
+            toast.error("Failed to remove item", { id });
         }
     };
 
     const updateQuantity = async (productId, quantity) => {
         if (!user || quantity < 1) return;
 
+        const id = toast.loading("Updating quantity...");
         try {
             const response = await fetch('/api/cart', {
                 method: 'PUT',
@@ -101,20 +105,20 @@ export function CartProvider({ children }) {
             });
 
             if (response.ok) {
-                const id = toast.loading("Updating quantity...");
                 await fetchCart();
                 toast.success("Quantity updated", { id });
             } else {
-                toast.error("Failed to update quantity");
+                toast.error("Failed to update quantity", { id });
             }
         } catch (error) {
             console.error("Error updating quantity:", error);
-            toast.error("Failed to update quantity");
+            toast.error("Failed to update quantity", { id });
         }
     };
 
     const clearCart = async () => {
         if (!user) return;
+        const id = toast.loading("Clearing cart...");
 
         try {
             const response = await fetch('/api/cart', {
@@ -122,13 +126,13 @@ export function CartProvider({ children }) {
             });
 
             if (response.ok) {
-                const id = toast.loading("Clearing cart...");
                 await fetchCart();
                 toast.success("Cart cleared", { id });
                 setCart([]);
             }
         } catch (error) {
             console.error("Error clearing cart:", error);
+            toast.error("Failed to clear cart", { id });
         }
     };
 
