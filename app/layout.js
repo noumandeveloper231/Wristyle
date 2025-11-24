@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
           <CartProvider>
             <WishlistProvider>
               <Navbar />
-              <main className="flex-1 pt-20 min-h-screen">
+              <main className="flex-1 pt-18 min-h-screen">
                 {children}
               </main>
               <Footer />
