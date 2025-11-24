@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingCart, Search, Menu, X, User, LogOut } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, User, LogOut, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser, SignOutButton } from "@clerk/nextjs";
 
@@ -13,6 +14,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { cart } = useCart();
+    const { wishlist } = useWishlist();
     const { user, isSignedIn } = useUser();
     const router = useRouter();
 
@@ -59,6 +61,15 @@ export default function Navbar() {
                     <button className="hover:text-accent transition-colors">
                         <Search className="w-5 h-5" />
                     </button>
+
+                    <Link href="/wishlist" className="relative hover:text-accent transition-colors">
+                        <Heart className="w-5 h-5" />
+                        {wishlist.length > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                                {wishlist.length}
+                            </span>
+                        )}
+                    </Link>
 
                     <Link href="/cart" className="relative hover:text-accent transition-colors">
                         <ShoppingCart className="w-5 h-5" />

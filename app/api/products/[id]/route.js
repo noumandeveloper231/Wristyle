@@ -35,9 +35,10 @@ export async function PUT(request, { params }) {
     try {
         await connectDB();
         const body = await request.json();
+        const { id } = await params;
 
         const product = await Product.findByIdAndUpdate(
-            params.id,
+            id,
             body,
             { new: true, runValidators: true }
         );
@@ -63,8 +64,9 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
     try {
         await connectDB();
+        const { id } = await params;
 
-        const product = await Product.findByIdAndDelete(params.id);
+        const product = await Product.findByIdAndDelete(id);
 
         if (!product) {
             return NextResponse.json(

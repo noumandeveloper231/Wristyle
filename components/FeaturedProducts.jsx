@@ -5,18 +5,19 @@ import ProductCard from "./ProductCard";
 
 export default function FeaturedProducts() {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchFeaturedProducts();
     }, []);
 
     const fetchFeaturedProducts = async () => {
+        setLoading(true);
         try {
             const response = await fetch('/api/products?featured=true');
             if (response.ok) {
                 const data = await response.json();
-                setProducts(data.slice(0, 4)); // Show only 4 featured products
+                setProducts(data.slice(0, 4));
             }
         } catch (error) {
             console.error("Error fetching featured products:", error);

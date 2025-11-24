@@ -9,7 +9,7 @@ import { MessageCircle } from "lucide-react";
 // CONFIG (change for each project)
 // --------------------------
 const BRAND_NAME = "NoumanDeveloper"; // auto-used in Messages
-const BUBBLE_LINK = "https://noumandev.vercel.app"; // any external or internal link
+const BUBBLE_LINK = "https://nouman-dev-tau.vercel.app/"; // any external or internal link
 const ENABLE_CLICK = true; // set false if you don't want navigation
 
 const BRAND_MESSAGES = [

@@ -21,7 +21,10 @@ export async function GET(request) {
       query.featured = true;
     }
 
-    const products = await Product.find(query).sort({ createdAt: -1 });
+    const products = await Product.find(query)
+      .select('name description price original_price category images imageUrl stock featured createdAt')
+      .sort({ createdAt: -1 })
+      .lean();
 
     return NextResponse.json(products);
   } catch (error) {
@@ -51,7 +54,7 @@ export async function POST(request) {
     } = body;
 
     console.log('images', images);
-    
+
 
     if (!name || !description || !price || !category || !images) {
       return NextResponse.json(

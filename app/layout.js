@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import BotBubble from "@/components/BotBubble";
@@ -30,13 +31,15 @@ export default function RootLayout({ children }) {
           className={`${inter.variable} ${playfair.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`}
         >
           <CartProvider>
-            <Navbar />
-            <main className="grow pt-20">
-              {children}
-            </main>
-            <Footer />
-            <Toaster position="top-center" richColors />
-            <BotBubble />
+            <WishlistProvider>
+              <Navbar />
+              <main className="flex-1 pt-20 min-h-screen">
+                {children}
+              </main>
+              <Footer />
+              <Toaster position="top-center" richColors />
+              <BotBubble />
+            </WishlistProvider>
           </CartProvider>
         </body>
       </html>

@@ -4,9 +4,11 @@ import Link from "next/link";
 import { ShoppingCart, Heart, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function ProductCard({ product }) {
     const { addToCart } = useCart();
+    const { toggleWishlist, isInWishlist } = useWishlist();
 
     return (
         <motion.div
@@ -31,8 +33,12 @@ export default function ProductCard({ product }) {
 
                 {/* Action Buttons */}
                 <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="p-2 bg-white rounded-full shadow-md hover:bg-accent hover:text-white transition-colors" title="Add to Wishlist">
-                        <Heart className="w-4 h-4" />
+                    <button
+                        onClick={() => toggleWishlist(product)}
+                        className={`p-2 bg-white rounded-full shadow-md hover:bg-accent hover:text-white transition-colors ${isInWishlist(product._id || product.id) ? "text-red-500" : ""}`}
+                        title="Add to Wishlist"
+                    >
+                        <Heart className={`w-4 h-4 ${isInWishlist(product._id || product.id) ? "fill-current" : ""}`} />
                     </button>
                     <button
                         onClick={() => addToCart(product)}
