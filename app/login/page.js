@@ -8,7 +8,6 @@ export default function LoginPage() {
                     <h1 className="text-4xl font-serif font-bold text-primary mb-2">Welcome Back</h1>
                     <p className="text-muted-foreground">Sign in to your Wristyle account</p>
                 </div>
-
                 <SignIn
                     appearance={{
                         elements: {
