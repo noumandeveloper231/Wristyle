@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
+import { FileExclamationPoint } from "lucide-react";
 
 export default function FeaturedProducts() {
     const [products, setProducts] = useState([]);
@@ -25,6 +26,25 @@ export default function FeaturedProducts() {
             setLoading(false);
         }
     };
+
+    if (products.length === 0) {
+        return (
+            <section className="py-20 bg-secondary">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12" data-aos="fade-up">
+                        <h2 className="text-4xl font-serif font-bold text-primary mb-4">
+                            Featured Collection
+                        </h2>
+                        <div className="w-16 h-2 bg-primary rounded-full mx-auto mb-4"></div>
+                        <p className="text-muted-foreground max-w-2xl mx-auto flex flex-col items-center gap-4 mt-10">
+                            <FileExclamationPoint className="text-muted-foreground inline-block w-20 h-20 mr-2" />
+                            We couldn't find any featured products. Please check back later.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <section className="py-20 bg-secondary">
