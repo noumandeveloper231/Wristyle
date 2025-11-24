@@ -7,7 +7,7 @@ export async function PATCH(request, { params }) {
     try {
         await connectDB();
 
-        const { id } = params;
+        const { id } = await params;
         const { status } = await request.json();
 
         const order = await Order.findByIdAndUpdate(
@@ -38,7 +38,7 @@ export async function GET(request, { params }) {
     try {
         await connectDB();
 
-        const { id } = params;
+        const { id } = await params;
         const order = await Order.findById(id)
             .populate('user', 'name email')
             .populate('items.product');
